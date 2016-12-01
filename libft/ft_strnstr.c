@@ -3,43 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strnstr.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gli <marvin@42.fr>                         +#+  +:+       +#+        */
+/*   By: cyildiri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/09/23 14:48:09 by gli               #+#    #+#             */
-/*   Updated: 2016/09/27 15:31:40 by gli              ###   ########.fr       */
+/*   Created: 2016/09/25 14:15:39 by cyildiri          #+#    #+#             */
+/*   Updated: 2016/09/28 20:25:42 by cyildiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <string.h>
+#include "includes/libft.h"
 
-static int		check_string(const char *str,
-		const char *little, size_t i, size_t len)
+char	*ft_strnstr(const char *big, const char *little, size_t len)
 {
-	int		j;
+	char	*ptr;
+	int		index;
+	int		lil_len;
 
-	j = 0;
-	while (little[j] != '\0')
+	index = 0;
+	lil_len = ft_strlen(little);
+	if (*little == '\0')
+		return ((char *)big);
+	while (index < (int)len && big[index] != '\0')
 	{
-		if ((str[i] != little[j]) || (i > len - 1))
-			return (0);
-		i++;
-		j++;
-	}
-	return (1);
-}
-
-char			*ft_strnstr(const char *big, const char *little, size_t len)
-{
-	size_t	i;
-
-	i = 0;
-	if (little[0] == '\0')
-		return ((char*)big);
-	while (big[i] != '\0' && i < len)
-	{
-		if (check_string(big, little, i, len) == 1)
-			return ((char*)big + i);
-		i++;
+		if (big[index] == little[0])
+		{
+			ptr = (char *)&big[index];
+			if (lil_len <= (int)len - index)
+				if (lil_len <= (int)ft_strlen(big) - index)
+					if (!ft_memcmp(ptr, little, ft_strlen(little)))
+						return (ptr);
+		}
+		index++;
 	}
 	return (NULL);
 }

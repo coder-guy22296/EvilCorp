@@ -1,34 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_arrjoin.c                                       :+:      :+:    :+:   */
+/*   ft_count_digits.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gli <marvin@42.fr>                         +#+  +:+       +#+        */
+/*   By: cyildiri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/09/27 16:48:54 by gli               #+#    #+#             */
-/*   Updated: 2016/09/27 16:58:57 by gli              ###   ########.fr       */
+/*   Created: 2016/10/09 19:45:29 by cyildiri          #+#    #+#             */
+/*   Updated: 2016/10/09 19:47:19 by cyildiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "includes/libft.h"
 
-char	*ft_arrjoin(char **arr)
+int	ft_count_digits(int n)
 {
-	int		i;
-	char	*tmp1;
-	char	*tmp2;
+	int				i;
+	unsigned int	cur;
+	int				sign;
 
-	if (!arr)
-		return (NULL);
 	i = 0;
-	tmp1 = (char*)malloc(sizeof(char) * 1);
-	tmp1[0] = '\0';
-	while (arr[i] != 0)
+	cur = ft_pop_sign(n, &sign);
+	if (n == 0)
+		return (1);
+	while (cur >= 1)
 	{
-		tmp2 = ft_strjoin(tmp1, arr[i]);
-		free(tmp1);
-		tmp1 = tmp2;
+		cur /= 10;
 		i++;
 	}
-	return (tmp2);
+	return (i);
 }

@@ -1,34 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strrev.c                                        :+:      :+:    :+:   */
+/*   ft_lmapget.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gli <marvin@42.fr>                         +#+  +:+       +#+        */
+/*   By: cyildiri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/09/27 16:34:26 by gli               #+#    #+#             */
-/*   Updated: 2016/09/27 16:46:41 by gli              ###   ########.fr       */
+/*   Created: 2016/10/26 14:10:03 by cyildiri          #+#    #+#             */
+/*   Updated: 2016/10/26 14:10:08 by cyildiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "includes/libft.h"
 
-char	*ft_strrev(const char *s1)
+t_lmap	*ft_lmapget(t_lmap *map, void const *key)
 {
-	char	*new;
-	int		i;
-	int		len;
+	t_lmap *cur;
 
-	if (!s1)
-		return (NULL);
-	new = ft_strdup(s1);
-	len = ft_strlen(s1) - 1;
-	i = 0;
-	while (s1[i] != '\0')
+	cur = map;
+	while (cur)
 	{
-		new[i] = s1[len];
-		i++;
-		len--;
+		if (ft_memcmp(key, cur->key, cur->key_size) == 0)
+			return (cur);
+		cur = cur->next;
 	}
-	new[i] = '\0';
-	return (new);
+	return (NULL);
 }

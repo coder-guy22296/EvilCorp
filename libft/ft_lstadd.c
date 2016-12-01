@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstadd.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gli <marvin@42.fr>                         +#+  +:+       +#+        */
+/*   By: cyildiri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/09/26 16:51:20 by gli               #+#    #+#             */
-/*   Updated: 2016/09/27 15:14:38 by gli              ###   ########.fr       */
+/*   Created: 2016/10/12 12:18:29 by cyildiri          #+#    #+#             */
+/*   Updated: 2016/10/12 13:17:42 by cyildiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "includes/libft.h"
 
 void	ft_lstadd(t_list **alst, t_list *new)
 {

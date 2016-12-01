@@ -1,26 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr.c                                        :+:      :+:    :+:   */
+/*   ft_strmerge.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cyildiri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/10/09 16:00:05 by cyildiri          #+#    #+#             */
-/*   Updated: 2016/10/09 16:25:43 by cyildiri         ###   ########.fr       */
+/*   Created: 2016/10/27 14:02:17 by cyildiri          #+#    #+#             */
+/*   Updated: 2016/10/27 14:02:20 by cyildiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/libft.h"
 
-void	ft_putnbr(int n)
-{
-	int				sign;
-	unsigned int	num;
+/*
+**	this function appends add_str to the main_str and frees the original strings
+*/
 
-	num = ft_pop_sign(n, &sign);
-	if (sign)
-		ft_putchar('-');
-	if (num >= 10)
-		ft_putnbr(num / 10);
-	ft_putchar((num % 10) + '0');
+char	*ft_strmerge(char **main_str, char *add_str)
+{
+	char *new;
+
+	if (!(new = ft_strjoin(*main_str, add_str)))
+		return (NULL);
+	ft_strdel(main_str);
+	ft_strdel(&add_str);
+	*main_str = new;
+	return (*main_str);
 }

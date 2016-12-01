@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr.c                                        :+:      :+:    :+:   */
+/*   ft_newbuffer.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cyildiri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/10/09 16:00:05 by cyildiri          #+#    #+#             */
-/*   Updated: 2016/10/09 16:25:43 by cyildiri         ###   ########.fr       */
+/*   Created: 2016/10/29 18:04:30 by cyildiri          #+#    #+#             */
+/*   Updated: 2016/10/29 18:15:39 by cyildiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/libft.h"
 
-void	ft_putnbr(int n)
+t_buff	*ft_newbuffer(int buffer_len, size_t elem_size)
 {
-	int				sign;
-	unsigned int	num;
+	t_buff *buff;
 
-	num = ft_pop_sign(n, &sign);
-	if (sign)
-		ft_putchar('-');
-	if (num >= 10)
-		ft_putnbr(num / 10);
-	ft_putchar((num % 10) + '0');
+	if (!(buff = (t_buff *)ft_memalloc(sizeof(t_buff))))
+		return (NULL);
+	if (!(buff->buffer = ft_memalloc(elem_size * buffer_len)))
+		return (NULL);
+	buff->buffer_len = buffer_len;
+	buff->buf_util = 0;
+	return (buff);
 }

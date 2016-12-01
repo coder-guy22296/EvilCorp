@@ -29,8 +29,8 @@ int			key_hook(int keycode, void *param)
     
     if ((textbox = get_focused_textbox(fdf)))
     {
-        ft_putstr("cursor pos: ");
-        ft_putnbr(textbox->cursor_pos);
+//        ft_putstr("cursor pos: ");
+//        ft_putnbr(textbox->cursor_pos);
         char *string = "asdfhgzxcv bqweryt123465=97-80]ou[ip lj\"k;\\,/nm.  `       . * +     / -  =01234567 89";
         if(keycode == 51 && textbox->cursor_pos > 0)
         {
@@ -49,9 +49,9 @@ int			key_hook(int keycode, void *param)
         if (fdf->page == 1)
             render_registration_page(fdf);
         
-        ft_putstr("cursor pos: ");
-        ft_putnbr(textbox->cursor_pos);
-        ft_putchar('\n');
+//        ft_putstr("cursor pos: ");
+//        ft_putnbr(textbox->cursor_pos);
+//        ft_putchar('\n');
     }
         if (keycode == 53)
     {

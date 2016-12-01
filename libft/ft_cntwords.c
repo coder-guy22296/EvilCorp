@@ -1,26 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr.c                                        :+:      :+:    :+:   */
+/*   ft_cntwords.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cyildiri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/10/09 16:00:05 by cyildiri          #+#    #+#             */
-/*   Updated: 2016/10/09 16:25:43 by cyildiri         ###   ########.fr       */
+/*   Created: 2016/10/04 21:11:30 by cyildiri          #+#    #+#             */
+/*   Updated: 2016/10/05 11:42:26 by cyildiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/libft.h"
-
-void	ft_putnbr(int n)
+int	ft_cntwords(char const *str, char delim)
 {
-	int				sign;
-	unsigned int	num;
+	char	lastchar;
+	int		index;
+	int		words;
 
-	num = ft_pop_sign(n, &sign);
-	if (sign)
-		ft_putchar('-');
-	if (num >= 10)
-		ft_putnbr(num / 10);
-	ft_putchar((num % 10) + '0');
+	words = 0;
+	lastchar = delim;
+	index = 0;
+	while (str[index] != '\0')
+	{
+		if (str[index] == delim)
+			if (lastchar != delim)
+				words++;
+		lastchar = str[index];
+		index++;
+	}
+	if (lastchar != delim)
+		words++;
+	return (words);
 }

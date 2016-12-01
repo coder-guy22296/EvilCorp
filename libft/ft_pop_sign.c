@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr.c                                        :+:      :+:    :+:   */
+/*   ft_pop_sign.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cyildiri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/10/09 16:00:05 by cyildiri          #+#    #+#             */
-/*   Updated: 2016/10/09 16:25:43 by cyildiri         ###   ########.fr       */
+/*   Created: 2016/10/09 16:18:45 by cyildiri          #+#    #+#             */
+/*   Updated: 2016/10/09 16:19:39 by cyildiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/libft.h"
-
-void	ft_putnbr(int n)
+unsigned int	ft_pop_sign(int n, int *sign)
 {
-	int				sign;
-	unsigned int	num;
+	unsigned int buff;
 
-	num = ft_pop_sign(n, &sign);
-	if (sign)
-		ft_putchar('-');
-	if (num >= 10)
-		ft_putnbr(num / 10);
-	ft_putchar((num % 10) + '0');
+	*sign = 0;
+	if (n < 0)
+	{
+		*sign = 1;
+		buff = (unsigned int)(n * -1);
+	}
+	else
+		buff = (unsigned int)n;
+	return (buff);
 }

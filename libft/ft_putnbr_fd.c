@@ -1,33 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr.c                                        :+:      :+:    :+:   */
+/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gli <marvin@42.fr>                         +#+  +:+       +#+        */
+/*   By: cyildiri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/09/21 11:17:16 by gli               #+#    #+#             */
-/*   Updated: 2016/09/21 19:17:45 by gli              ###   ########.fr       */
+/*   Created: 2016/10/09 17:02:21 by cyildiri          #+#    #+#             */
+/*   Updated: 2016/10/09 19:38:59 by cyildiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "includes/libft.h"
 
 void	ft_putnbr_fd(int n, int fd)
 {
-	unsigned int nb;
+	int				sign;
+	unsigned int	num;
 
-	if (n < 0)
-	{
-		nb = -n;
+	num = ft_pop_sign(n, &sign);
+	if (sign)
 		ft_putchar_fd('-', fd);
-	}
-	else
-		nb = n;
-	if (nb < 10)
-		ft_putchar_fd(('0' + nb), fd);
-	else
-	{
-		ft_putnbr_fd((int)(nb / 10), fd);
-		ft_putchar_fd('0' + (nb - nb / 10 * 10), fd);
-	}
+	if (num >= 10)
+		ft_putnbr_fd(num / 10, fd);
+	ft_putchar_fd((num % 10) + '0', fd);
 }

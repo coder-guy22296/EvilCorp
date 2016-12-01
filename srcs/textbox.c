@@ -109,11 +109,11 @@ char *get_textbox_content(t_fdf *fdf, char *title)
 		//execute here
 		if (ft_strcmp(textbox->title, title) == 0)
 		{
-			return(textbox->content);
+			return (textbox->content);
 		}
-		//
 		lst = tmp;
 	}
+
 	return (NULL);
 }
 

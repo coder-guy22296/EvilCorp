@@ -1,22 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew.c                                        :+:      :+:    :+:   */
+/*   ft_lmapnew.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cyildiri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/10/11 14:56:49 by cyildiri          #+#    #+#             */
-/*   Updated: 2016/10/12 13:30:57 by cyildiri         ###   ########.fr       */
+/*   Created: 2016/10/26 12:15:03 by cyildiri          #+#    #+#             */
+/*   Updated: 2016/10/26 12:41:04 by cyildiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/libft.h"
 
-t_list	*ft_lstnew(void const *content, size_t content_size)
+t_lmap	*ft_lmapnew(void const *key, size_t key_size, void const *content,
+					size_t content_size)
 {
-	t_list *node;
+	t_lmap *node;
 
-	if (!(node = (t_list *)ft_memalloc(sizeof(t_list))))
+	if (!(node = (t_lmap *)ft_memalloc(sizeof(t_lmap))))
+		return (NULL);
+	if (key && (node->key = ft_memalloc(key_size)))
+	{
+		node->key_size = key_size;
+		ft_memcpy(node->key, key, key_size);
+	}
+	else
 		return (NULL);
 	if (content)
 	{

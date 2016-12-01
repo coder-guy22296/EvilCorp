@@ -3,49 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gli <marvin@42.fr>                         +#+  +:+       +#+        */
+/*   By: cyildiri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/09/26 17:14:28 by gli               #+#    #+#             */
-/*   Updated: 2016/09/27 14:12:33 by gli              ###   ########.fr       */
+/*   Created: 2016/10/12 12:31:35 by cyildiri          #+#    #+#             */
+/*   Updated: 2016/10/12 14:49:19 by cyildiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "includes/libft.h"
 
-static void	st_free(t_list *lst)
+t_list	*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
 {
-	t_list *new;
+	t_list *current;
+	t_list *output;
 
-	while (lst != NULL)
+	output = NULL;
+	current = lst;
+	if (current)
 	{
-		new = lst->next;
-		free(lst);
-		lst = new;
-	}
-}
-
-t_list		*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem))
-{
-	t_list *new;
-	t_list *begin;
-	t_list *tmp;
-
-	tmp = (*f)(lst);
-	if (!lst || !(new = ft_lstnew(tmp->content, tmp->content_size)))
-		return (NULL);
-	begin = new;
-	lst = lst->next;
-	while (lst != NULL)
-	{
-		tmp = (*f)(lst);
-		new->next = ft_lstnew(tmp->content, tmp->content_size);
-		if (!(new->next))
+		while (current->next)
 		{
-			st_free(begin);
-			return (new);
+			ft_lstaddend(&output, f(current));
+			current = current->next;
 		}
-		lst = lst->next;
-		new = new->next;
+		ft_lstaddend(&output, f(current));
 	}
-	return (begin);
+	else
+		output = NULL;
+	return (output);
 }

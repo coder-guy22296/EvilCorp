@@ -3,30 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memccpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gli <marvin@42.fr>                         +#+  +:+       +#+        */
+/*   By: cyildiri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/09/22 12:56:08 by gli               #+#    #+#             */
-/*   Updated: 2016/09/27 15:43:15 by gli              ###   ########.fr       */
+/*   Created: 2016/09/25 21:21:36 by cyildiri          #+#    #+#             */
+/*   Updated: 2016/09/26 14:27:37 by cyildiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <string.h>
 
 void	*ft_memccpy(void *dst, const void *src, int c, size_t n)
 {
-	unsigned char	*cdst;
-	unsigned char	*csrc;
-	size_t			i;
+	size_t			index;
+	unsigned char	*src_ptr;
+	unsigned char	*dst_ptr;
 
-	cdst = (unsigned char *)dst;
-	csrc = (unsigned char *)src;
-	i = 0;
-	while (i < n)
+	index = 0;
+	src_ptr = (unsigned char *)src;
+	dst_ptr = (unsigned char *)dst;
+	while (index < n)
 	{
-		cdst[i] = csrc[i];
-		i++;
-		if (csrc[i - 1] == (unsigned char)c)
-			return ((void*)&cdst[i]);
+		dst_ptr[index] = src_ptr[index];
+		if (dst_ptr[index] == (unsigned char)c)
+			return (&dst_ptr[index + 1]);
+		index++;
 	}
-	return ((void*)NULL);
+	if (index == n)
+		return (NULL);
+	else
+		return (&dst_ptr[index]);
 }

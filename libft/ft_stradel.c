@@ -1,26 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putnbr.c                                        :+:      :+:    :+:   */
+/*   ft_stradel.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cyildiri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/10/09 16:00:05 by cyildiri          #+#    #+#             */
-/*   Updated: 2016/10/09 16:25:43 by cyildiri         ###   ########.fr       */
+/*   Created: 2016/10/04 20:28:36 by cyildiri          #+#    #+#             */
+/*   Updated: 2016/10/05 10:26:29 by cyildiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/libft.h"
+#include <stdlib.h>
+#include <strings.h>
 
-void	ft_putnbr(int n)
+void	ft_stradel(char ***arr)
 {
-	int				sign;
-	unsigned int	num;
+	int i;
 
-	num = ft_pop_sign(n, &sign);
-	if (sign)
-		ft_putchar('-');
-	if (num >= 10)
-		ft_putnbr(num / 10);
-	ft_putchar((num % 10) + '0');
+	i = 0;
+	while (*arr[i] != '\0')
+	{
+		if (*arr[i])
+		{
+			free(*arr[i]);
+			*arr[i] = NULL;
+		}
+		i++;
+	}
+	free(*arr[i]);
+	*arr[i] = NULL;
+	free(**arr);
+	**arr = NULL;
 }

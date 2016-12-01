@@ -1,24 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_base_two.c                                      :+:      :+:    :+:   */
+/*   ft_lmapadd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gli <marvin@42.fr>                         +#+  +:+       +#+        */
+/*   By: cyildiri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/09/27 18:04:32 by gli               #+#    #+#             */
-/*   Updated: 2016/09/27 18:15:42 by gli              ###   ########.fr       */
+/*   Created: 2016/10/26 12:45:46 by cyildiri          #+#    #+#             */
+/*   Updated: 2016/10/26 12:46:06 by cyildiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "includes/libft.h"
 
-void	ft_base_two(unsigned int nb)
+void	ft_lmapadd(t_lmap **map, t_lmap *new)
 {
-	if (nb < 2)
-		ft_putnbr(nb);
-	else
-	{
-		ft_base_two(nb / 2);
-		ft_putnbr(nb % 2);
-	}
+	new->next = *map;
+	*map = new;
 }

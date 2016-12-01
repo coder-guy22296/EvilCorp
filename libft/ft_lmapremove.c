@@ -1,34 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncpy.c                                       :+:      :+:    :+:   */
+/*   ft_lmapremove.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cyildiri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/09/25 11:40:26 by cyildiri          #+#    #+#             */
-/*   Updated: 2016/09/27 19:45:49 by cyildiri         ###   ########.fr       */
+/*   Created: 2016/10/26 13:23:21 by cyildiri          #+#    #+#             */
+/*   Updated: 2016/10/26 13:23:22 by cyildiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "includes/libft.h"
 
-char	*ft_strncpy(char *dst, const char *src, size_t len)
+int	ft_lmapremove(t_lmap **map, void const *key, void (*del_key)(void *),
+					void (*del_content)(void *))
 {
-	size_t	index;
-	size_t	i;
+	t_lmap *cur;
+	t_lmap *last;
 
-	index = 0;
-	i = 0;
-	while (index < len)
+	cur = *map;
+	last = *map;
+	while (cur)
 	{
-		if (src[i] != '\0')
+		if (ft_memcmp(key, cur->key, cur->key_size) == 0)
 		{
-			dst[index] = src[i];
-			i++;
+			del_content(cur->content);
+			del_key(cur->key);
+			if (last != *map)
+				last->next = cur->next;
+			else
+				*map = cur->next;
+			ft_memdel((void **)&cur);
+			return (1);
 		}
-		else
-			dst[index] = '\0';
-		index++;
+		last = cur;
+		cur = cur->next;
 	}
-	return (dst);
+	return (0);
 }

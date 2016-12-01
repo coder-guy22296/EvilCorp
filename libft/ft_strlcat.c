@@ -3,44 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strlcat.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gli <marvin@42.fr>                         +#+  +:+       +#+        */
+/*   By: cyildiri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/09/23 10:31:43 by gli               #+#    #+#             */
-/*   Updated: 2016/09/28 11:37:39 by gli              ###   ########.fr       */
+/*   Created: 2016/09/25 22:05:56 by cyildiri          #+#    #+#             */
+/*   Updated: 2016/09/26 12:34:02 by cyildiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "includes/libft.h"
 
-static size_t	ft_strnlen(char *str, size_t size)
+size_t	ft_strlcat(char *dst, const char *src, size_t size)
 {
-	size_t	i;
+	int index;
+	int max_cpy;
+	int dst_len;
+	int i;
 
+	dst_len = ft_strlen(dst);
+	index = 0;
+	while (dst[index] != '\0')
+		index++;
+	max_cpy = (size - dst_len - 1);
 	i = 0;
-	while (i < size && str[i] != '\0')
-		i++;
-	return (i);
-}
-
-size_t			ft_strlcat(char *dst, const char *src, size_t size)
-{
-	size_t	l_dst;
-	size_t	l_src;
-	size_t	n_size;
-
-	l_dst = ft_strnlen(dst, size);
-	l_src = ft_strlen(src);
-	n_size = 0;
-	if (l_dst == size)
-		return (l_dst + l_src);
-	while ((l_dst + n_size) < size && src[n_size] != '\0')
+	while (i < max_cpy)
 	{
-		dst[l_dst + n_size] = src[n_size];
-		n_size++;
+		dst[index] = src[i];
+		index++;
+		i++;
 	}
-	if (src[n_size] != '\0')
-		dst[l_dst + n_size - 1] = '\0';
+	dst[index] = '\0';
+	if ((int)size < dst_len)
+		return (size + ft_strlen(src));
 	else
-		dst[l_dst + n_size] = '\0';
-	return (l_dst + l_src);
+		return (dst_len + ft_strlen(src));
 }

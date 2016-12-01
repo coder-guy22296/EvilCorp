@@ -3,16 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_toupper.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gli <marvin@42.fr>                         +#+  +:+       +#+        */
+/*   By: cyildiri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/09/26 10:00:57 by gli               #+#    #+#             */
-/*   Updated: 2016/09/26 10:03:18 by gli              ###   ########.fr       */
+/*   Created: 2016/09/24 15:35:26 by cyildiri          #+#    #+#             */
+/*   Updated: 2016/09/24 16:06:39 by cyildiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-int		ft_toupper(int c)
+int	ft_toupper(int c)
 {
-	if (c <= 'z' && c >= 'a')
-		return (c - 'a' + 'A');
+	if (c >= 'a' && c <= 'z')
+	{
+		return (c - 32);
+	}
 	return (c);
 }

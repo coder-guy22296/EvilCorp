@@ -131,13 +131,14 @@ void	pharmacist_page(t_fdf *fdf);
 void	doctor_page(t_fdf *fdf);
 
 //textbox
-//textbox
 t_textbox	*new_textbox(char *title, int x, int y, int height, int width, int char_limit);
 void		render_textbox(t_fdf *fdf, t_textbox *textbox);
 void		render_textboxes(t_fdf *fdf, t_list *list);
 void		del_textbox(void *content, size_t size);
 t_textbox	*get_focused_textbox(t_fdf *fdf);
-char *get_textbox_content(t_fdf *fdf, char *title);
+char		*get_textbox_content(t_fdf *fdf, char *title);
+
+//other
 void		draw_line(int x, int y1, int y2, t_fdf *fdf);
 void 		draw_logo(t_fdf *fdf);
 

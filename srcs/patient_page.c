@@ -4,6 +4,7 @@
 void login_page_prep(t_fdf *fdf)
 {
     ft_lstdel(&(fdf->textboxes), del_textbox);
+    fdf->textboxes = 0;
     ft_lstadd(&(fdf->textboxes), ft_lstnew(new_textbox("Username:\0", 50, 450, 20, 310, 250), sizeof(t_textbox)));
     ft_lstadd(&(fdf->textboxes), ft_lstnew(new_textbox("Password:\0", 50, 500, 20, 310, 250), sizeof(t_textbox)));
 }
@@ -11,6 +12,7 @@ void login_page_prep(t_fdf *fdf)
 void register_page_prep(t_fdf *fdf)
 {
     ft_lstdel(&(fdf->textboxes), del_textbox);
+    fdf->textboxes = 0;
     ft_lstadd(&(fdf->textboxes), ft_lstnew(new_textbox("Full Name:\0",     50, 350, 20, 310, 250), sizeof(t_textbox)));
     ft_lstadd(&(fdf->textboxes), ft_lstnew(new_textbox("Age:\0",           50, 400, 20, 310, 250), sizeof(t_textbox)));
     ft_lstadd(&(fdf->textboxes), ft_lstnew(new_textbox("Government ID:\0", 50, 450, 20, 310, 250), sizeof(t_textbox)));
@@ -307,9 +309,17 @@ int				mouse_hook(int button, int x, int y, t_fdf *fdf)
                 if (x >= 90 && x <= 160 && y >= 550 && y <= 575)
                 {
                     fdf->active_user = login(   fdf->users,
-                                                get_textbox_content(fdf, "Username:\0"),
-                                                get_textbox_content(fdf, "Password:\0") );
+                                                ft_strdup(get_textbox_content(fdf, "Username:\0")),
+												ft_strdup(get_textbox_content(fdf, "Password:\0")) );
 
+                    fdf->page = 0;
+                    ft_putstr("username: ");
+                    ft_putstr(get_textbox_content(fdf, "Username:\0"));
+                    ft_putstr("\n");
+                    ft_putstr("password: ");
+                    ft_putstr(get_textbox_content(fdf, "Password:\0"));
+                    ft_putstr("\n");
+                    ft_putstr("login attempt!\n");
                     if (fdf->active_user)
                     {
                         mlx_clear_window(0, fdf->window);
@@ -355,22 +365,22 @@ int				mouse_hook(int button, int x, int y, t_fdf *fdf)
             {
                 if ( x >= 190 && x <= 290 && y >= 650 && y <= 675)
                 {
-                    mlx_clear_window(0, fdf->window);
-                    login_page_prep(fdf);
-                    render_login_page(fdf);
-                    fdf->new_user = new_user(get_textbox_content(fdf, "Full Name:\0"),
-                                        get_textbox_content(fdf, "Username:\0"),
-                                        get_textbox_content(fdf, "Password:\0"),
-                                        fdf->user_role);
+                    fdf->new_user = new_user(ft_strdup(get_textbox_content(fdf, "Full Name:\0")),
+											 ft_strdup(get_textbox_content(fdf, "Username:\0")),
+											 ft_strdup(get_textbox_content(fdf, "Password:\0")),
+											 ft_strdup(fdf->user_role));
                     ft_lstadd(&(fdf->users), ft_lstnew(fdf->new_user, sizeof(t_user)));
                     fdf->page = 0;
                     ft_putstr("username: ");
-                    ft_putstr(fdf->new_user->username);
+                    ft_putstr(get_textbox_content(fdf, "Username:\0"));
                     ft_putstr("\n");
                     ft_putstr("password: ");
-                    ft_putstr(fdf->new_user->password);
+                    ft_putstr(get_textbox_content(fdf, "Password:\0"));
                     ft_putstr("\n");
                     ft_putstr("added!\n");
+					mlx_clear_window(0, fdf->window);
+					login_page_prep(fdf);
+					render_login_page(fdf);
                 }
                 if ( x >= 165 && x <= 245 && y >= 300 && y <= 320)
                 {

@@ -3,104 +3,82 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strsplit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gli <marvin@42.fr>                         +#+  +:+       +#+        */
+/*   By: cyildiri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/09/26 14:08:18 by gli               #+#    #+#             */
-/*   Updated: 2016/09/27 13:04:18 by gli              ###   ########.fr       */
+/*   Created: 2016/10/04 16:56:23 by cyildiri          #+#    #+#             */
+/*   Updated: 2016/10/05 17:25:11 by cyildiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "includes/libft.h"
+#include <stdlib.h>
 
-static int	st_wc(char const *s, char c)
+static char	**ft_alloc_word_mem(int words, char const *s, char c, char **new)
 {
-	int		i;
-	int		count;
+	int		word_start;
+	char	lastchar;
+	int		index;
+	int		word;
 
-	i = 0;
-	count = 0;
-	while (s[i] != '\0')
+	word_start = 0;
+	lastchar = c;
+	index = 0;
+	word = 0;
+	while (word < words)
 	{
-		while (s[i] == c)
-			i++;
-		if (s[i] != c && s[i] != '\0')
+		if (lastchar == c)
+			word_start = index;
+		else if (s[index] == c || s[index] == '\0')
 		{
-			count += 1;
-			while (s[i] != c && s[i] != '\0')
-				i++;
+			if (!(new[word++] = ft_strnew(index - word_start)))
+			{
+				ft_stradel(&new);
+				return (NULL);
+			}
 		}
+		lastchar = s[index++];
 	}
-	return (count);
+	return (new);
 }
 
-static int	st_wl(char const *s, char c, int i)
+static char	**ft_copy_words(int words, char const *s, char c, char **new)
 {
-	int		len;
-
-	len = 0;
-	while (s[i] != c && s[i] != '\0')
-	{
-		len++;
-		i++;
-	}
-	return (len);
-}
-
-static int	st_copy(char *arr, int i, char const *s, char c)
-{
-	int		k;
-	int		len;
-
-	len = st_wl(s, c, i);
-	k = 0;
-	while (k < len)
-	{
-		arr[k] = s[i];
-		i++;
-		k++;
-	}
-	arr[k] = '\0';
-	i--;
-	return (i);
-}
-
-static void	st_free(char **arr, int j)
-{
+	char	lastchar;
+	int		index;
+	int		word;
 	int		i;
 
+	lastchar = c;
+	index = 0;
+	word = 0;
 	i = 0;
-	while (i < j)
+	while (word < words)
 	{
-		free(arr[i]);
-		i++;
+		if ((s[index] == c || s[index] == '\0') && lastchar != c)
+		{
+			i = 0;
+			word++;
+		}
+		if (s[index] != c && s[index] != '\0')
+			new[word][i++] = (char)s[index];
+		lastchar = s[index++];
 	}
-	free(arr);
+	new[words] = NULL;
+	return (new);
 }
 
 char		**ft_strsplit(char const *s, char c)
 {
-	char	**arr;
-	int		i;
-	int		j;
+	char	**str_arr;
+	int		words;
 
-	if (!s || !(arr = (char**)malloc(sizeof(char*) * (st_wc(s, c) + 1))))
+	if (s == NULL)
 		return (NULL);
-	i = 0;
-	j = 0;
-	while (s[i] != '\0')
-	{
-		if (s[i] != c)
-		{
-			if (!(arr[j] = (char*)malloc(sizeof(char) * st_wl(s, c, i) + 1)))
-			{
-				st_free(arr, j);
-				return (NULL);
-			}
-			i = st_copy(arr[j], i, s, c);
-			j++;
-		}
-		i++;
-	}
-	arr[j] = 0;
-	return (arr);
+	words = ft_cntwords(s, c);
+	if (!(str_arr = (char **)malloc(sizeof(char *) * (words + 1))))
+		return (NULL);
+	if (!(str_arr = ft_alloc_word_mem(words, s, c, str_arr)))
+		return (NULL);
+	str_arr = ft_copy_words(words, s, c, str_arr);
+	return (str_arr);
 }

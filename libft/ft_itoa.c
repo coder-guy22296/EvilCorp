@@ -3,64 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gli <marvin@42.fr>                         +#+  +:+       +#+        */
+/*   By: cyildiri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/09/21 19:20:11 by gli               #+#    #+#             */
-/*   Updated: 2016/09/27 08:52:09 by gli              ###   ########.fr       */
+/*   Created: 2016/10/09 14:22:36 by cyildiri          #+#    #+#             */
+/*   Updated: 2016/10/09 14:56:36 by cyildiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "includes/libft.h"
 
-static	int		nb_length(unsigned int nb, int flag)
+char	*ft_itoa(int n)
 {
-	int i;
+	int				len;
+	int				index;
+	char			*out_str;
+	int				sign;
+	unsigned int	num;
 
-	i = 1;
-	while (nb >= 10)
-	{
-		nb = nb / 10;
-		i++;
-	}
-	return (i + flag);
-}
-
-static char		*make_string(unsigned int nb, int flag)
-{
-	int		l;
-	char	*str;
-
-	l = nb_length(nb, flag);
-	str = (char*)malloc(sizeof(char) * (l + 1));
-	if (str == NULL)
+	len = ft_count_digits(n);
+	num = ft_pop_sign(n, &sign);
+	if (!(out_str = ft_strnew(len + sign)))
 		return (NULL);
-	str[l] = '\0';
-	while (nb >= 10)
+	index = (len + sign) - 1;
+	while (index > 0)
 	{
-		str[l - 1] = ('0' + nb % 10);
-		nb = nb / 10;
-		l--;
+		out_str[index] = (num % 10) + '0';
+		num /= 10;
+		index--;
 	}
-	str[l - 1] = '0' + nb;
-	if (flag == 1)
-		str[0] = '-';
-	return (str);
-}
-
-char			*ft_itoa(int n)
-{
-	unsigned int	nb;
-	int				flag;
-	char			*str;
-
-	flag = 0;
-	if (n < 0)
-	{
-		nb = -n;
-		flag = 1;
-	}
+	if (sign)
+		out_str[index] = '-';
 	else
-		nb = n;
-	str = make_string(nb, flag);
-	return (str);
+		out_str[index] = (num % 10) + '0';
+	return (out_str);
 }

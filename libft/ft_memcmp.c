@@ -3,29 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gli <marvin@42.fr>                         +#+  +:+       +#+        */
+/*   By: cyildiri <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/09/22 14:37:20 by gli               #+#    #+#             */
-/*   Updated: 2016/09/22 14:52:52 by gli              ###   ########.fr       */
+/*   Created: 2016/09/25 19:43:55 by cyildiri          #+#    #+#             */
+/*   Updated: 2016/09/28 16:14:49 by cyildiri         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <string.h>
 
-int		ft_memcmp(const void *s1, const void *s2, size_t n)
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	unsigned char	*cs1;
-	unsigned char	*cs2;
-	size_t			i;
+	size_t			index;
+	unsigned char	*ptr1;
+	unsigned char	*ptr2;
 
-	i = 0;
-	cs1 = (unsigned char *)s1;
-	cs2 = (unsigned char *)s2;
-	while (i < n)
+	if (n == 0)
+		return (0);
+	index = 0;
+	ptr1 = (unsigned char *)s1;
+	ptr2 = (unsigned char *)s2;
+	while (index < n && ptr1[index] == ptr2[index])
 	{
-		if (cs1[i] != cs2[i])
-			return (cs1[i] - cs2[i]);
-		i++;
+		if (index == n - 1)
+			return (0);
+		index++;
 	}
-	return (0);
+	if (ptr1[index] != ptr2[index])
+		return ((int)ptr1[index] - (int)ptr2[index]);
+	else
+		return (0);
 }
